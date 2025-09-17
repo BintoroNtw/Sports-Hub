@@ -1,51 +1,24 @@
-https://bintoro-nata-sportshub.pbp.cs.ui.ac.id/
+-Mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
+Data delivery dipakai agar informasi dapat dikirim ke server ke client secara aman. Tanpa adanya mekanisme pengiriman data yang baik, aplikasi tidak bisa memunculkan informasi yang terbaru, memperbarui isi/konten, ataupun berinteraksi dengan user secara langsung.
 
-http://ristek.link/BaganRequestClientBintoro
+-Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?
+Menurut saya Json lebih baik untuk penggunaan web modern karena lebih ringkas dan mudah dibaca oleh manusia dibandingkan dengan XML.
 
--Membuat sebuah proyek Django baru
-Langkah untuk membuat proyek django baru adalah kita masuk ke dalam virtual environment.Ketika sudah muncul (env) pada terminal/command prmpt kita lakukan instalasi djanggo. Berdasarkan contoh di tutorial arahannya adalah membuat file requirements.txt yang didalamnya terdapat djanggo. Akan tetapi kita juga bisa instalasi dengan langsung menjalankan perintah "pip install django".Perbedaan dengan contoh yang di tutorial hanyalah didalam file requirement.txt tidak hanya djanggo dilakukan instalasi, sedangkan contoh yang saya berikan hanya django yang di instalasi.Setelah django di instalasi kita jalankan perintah "django-admin startproject {namaproyek}"
+-Jelaskan fungsi dari method is_valid() pada form Django dan mengapa kita membutuhkannya?
+digunakan untuk memvalidasi aakah data yang dikirim memenuhi aturan yang telah ditentukan,seeprti panjang karakter,tipe data, ataupun require fieldnya.
 
--Membuat aplikasi dengan nama main pada proyek tersebut
-Langkah pertama kamu adalah pastikan kamu ada di direktori terluar,seharusnya ada sebuah file bernama manage.py. Kemudian buka terminal/command prompt dan jalankan perintah "python manage.py startapp main"
+-Mengapa kita membutuhkan csrf_token saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan csrf_token pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?
+csrf_token digunakan untuk melindungi aplikasi dari serangan CSRF (Cross-Site Request Forgery).Tanpa csrf_token, penyerang bisa membuat requesst palsu dari browser yang sudah login. Selain itu Csrf_token bisa memastikan bahwa request berasal dari form yang aman dan bukan pihak ketiga.
 
--Melakukan routing pada proyek agar dapat menjalankan aplikasi main
-Untuk melakukan routing pada skala proyek untuk menjalankan aplikasi main. Kita buka direktori proyeknya (spots-hub) kemudian buka file urls.py bukan yang berada di direktori main. Lalu kita tambahkan import fungsi include dar django.urls dengan menambahkan "from django.urls import path, include" dan tambahkan rute URL dengan cara menambahkan di urlpatterns = path('',include('main.urls)). Gunanya adalah path akan diarahkan ke rute yang didefinisikan dalam berkas urls.py aplikasi main.Terakhir kamu jalankan perintah python manage.py runserver.
+Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+Dari alur checklist yang diberikan, saat membuat empat views untuk XML, JSON, XML by ID, dan JSON by ID, saya menyadari pentingnya serializers. Serializer ini membantu mengubah data dari model menjadi format XML atau JSON yang bisa dikirim ke client. Setelah itu, saya membuat routing URL dengan mengimpor view yang sudah dibuat dan menambahkan path-nya di urls.py.
 
--Membuat model pada aplikasi dengan nama Product(name CharField,price IntegerField,description TextField,dll)
-Kita buka file models.py pada direktori aplikasi dengan nama Product dan isi dengan atribut-atribut yang diminta. 
+Untuk halaman tampilan data, saya membuat tombol “Add” yang menuju halaman form, dan tombol “Detail” di setiap produk agar bisa melihat informasi lengkapnya. Implementasinya melalui template seperti create_product.html untuk form penambahan data, dan show_product.html untuk menampilkan daftar produk beserta tombol detailnya.
 
--Membuat sebuah fungsi pada views.py untuk dikembalikan ke dalam sebuah template HTML yang menampilkan nama aplikasi serta nama dan kelas kamu.
-Kita buka file views.py yang berada di aplikasi Main kemudian tambahkan from django.shortcuts import render. Gunanya adalah mengimpor fungsi render dari modul django.shortcuts. Kemudian fungsi render akan digunakan untuk render tampilan HTML dengan data yang telah diberikan.Lalu tambahkan fungsi show_main dibawah impor. Di akhir jangan lupa tulis return render(request,"main.html",context). Request berfungsi sebagai Objek permintaan HTTP yang dikirim oleh pengguna,main.html adalah nama file template yang digunakan untuk me render tampilanna,dan context adalah dictionary yang akan diteruskan ke interface.
+Secara keseluruhan, saat mengerjakan checklist ini, saya tidak sekadar menyalin tutorial. Saya mencoba memahami penggunaan dari masing-masing perintah yang diberikan di tutorial 2. 
 
--Membuat sebuah routing pada urls.py aplikasi main untuk memetakan fungsi yang telah dibuat pada views.py.
+-Apakah ada feedback untuk asdos di tutorial 2 yang sudah kalian kerjakan?
+Feedback saya adalah semoga asdos dapat lebih sabar lagi dalam menghadapi mahasiswa-mahasiswa yang masih kesulitan memahami apa yang perlu dilakukan. Semoga kakak-kakak asdos sehat selalu.
 
-buatlah file urls.py di dalam aplikasi main. Kemudian isi urls.py dengan template yang diberikan. Terdiri dari
-from django.urls import path                = melakukan impor pada fungsi path dari django.urls
-from main.views import show_main            = impor fungsi show_main dari main.views
-
-app_name = 'main'                           = membeirkan namespace unik pada url aplikasi
-
-urlpatterns = [
-    path('', show_main, name='show_main'),  = list berisi objek URLPattern yang dihasilkan oleh fungsi path()
-]
-
--Melakukan deployment ke PWS terhadap aplikasi yang sudah dibuat sehingga nantinya dapat diakses oleh teman-temanmu melalui Internet.
-gunakan terminal/command prompt dan jalankan perintah git add ., git commit -m {pesan}, git push origin master, dan git push pws master.
-
--Peran settings.py dalam proyek Django
-settings.py adalah konfigurasi pusat proyek Django.Semua pengaturan penting proyek ada di sini,seperti
-Database yang digunakan (DATABASES),Aplikasi yang terdaftar (INSTALLED_APPS)template,dll
-Pengaturan keamanan dan lokal (timezone, bahasa, secret key)
-Secara singkat mungkin settings.py memberitahu Django bagaimana proyek harus berjalan dan komponen apa saja yang aktif.
-
--Cara kerja migrasi database di Django
-Migrasi di Django adalah proses menyinkronkan perubahan model (di models.py) dengan database.
-Buat atau ubah model di models.py.
-    Jalankan python manage.py makemigrations implikasi Django membuat file migrasi yang berisi perubahan database.
-    Jalankan python manage.py migrate → Django menerapkan perubahan tersebut ke database fisik.
-
--Mengapa Django dijadikan permulaan pembelajaran framework
-Menurut saya kenapa Django dijadikan permulaan pembelajaran framework adalah cepat menghasilkan aplikasi jadi sambil belajar ada hasil/proyek nyatanya.Lalu banyak tutorialnya di internet jadi saya bisa cari solusi apabila ada kendala.
-
-feedback untuk asdos PBP
-Tidak ada,semoga kakak-kakak terus semangat dan rela membantu kami mahasiswa berusaha di matkul PBP ini. Terimakasih kakak-kakak.
+https://drive.google.com/file/d/1VX_PQFUUwOLalLXO2FIsvnPfRB09DBvy/view?usp=sharing
+https://drive.google.com/file/d/1fgKv9W7O0UySXCTq2b5eBb2AUI5AF85z/view?usp=sharing
