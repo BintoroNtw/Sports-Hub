@@ -1,1 +1,3 @@
 bang ampun bang
+
+ISI LAGI BANG BISMILLAH JALAN DI PWS
