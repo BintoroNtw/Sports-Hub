@@ -31,6 +31,12 @@ PRODUCTION = os.getenv('PRODUCTION','False').lower() == 'true'
 DEBUG = True
 
 ALLOWED_HOSTS = ["localhost","127.0.0.1","bintoro-nata-sportshub.pbp.cs.ui.ac.id"]
+...
+CSRF_TRUSTED_ORIGINS = [
+    "https://bintoro-nata-sportshub.pbp.cs.ui.ac.id/",
+    "http://localhost:8000/"
+]
+...
 
 
 # Application definition
@@ -60,7 +66,7 @@ ROOT_URLCONF = 'sports_hub.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
