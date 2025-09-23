@@ -34,7 +34,6 @@ ALLOWED_HOSTS = ["localhost","127.0.0.1","bintoro-nata-sportshub.pbp.cs.ui.ac.id
 ...
 CSRF_TRUSTED_ORIGINS = [
     "https://bintoro-nata-sportshub.pbp.cs.ui.ac.id/",
-    "http://localhost:8000/"
 ]
 ...
 
@@ -94,7 +93,7 @@ if PRODUCTION:
             'HOST': os.getenv('DB_HOST'),
             'PORT': os.getenv('DB_PORT'),
             'OPTIONS': {
-                'options' : f"-c search path={os.getenv('SCHEMA','public')}"
+                'options' : f"-c search_path={os.getenv('SCHEMA','public')}"
             }
         }
     }
