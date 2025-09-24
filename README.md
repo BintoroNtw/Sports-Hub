@@ -1,3 +1,4 @@
+Tugas 3
 -Mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
 Data delivery dipakai agar informasi dapat dikirim ke server ke client secara aman. Tanpa adanya mekanisme pengiriman data yang baik, aplikasi tidak bisa memunculkan informasi yang terbaru, memperbarui isi/konten, ataupun berinteraksi dengan user secara langsung.
 
@@ -22,3 +23,51 @@ Feedback saya adalah semoga asdos dapat lebih sabar lagi dalam menghadapi mahasi
 
 https://drive.google.com/file/d/1VX_PQFUUwOLalLXO2FIsvnPfRB09DBvy/view?usp=sharing
 https://drive.google.com/file/d/1fgKv9W7O0UySXCTq2b5eBb2AUI5AF85z/view?usp=sharing
+
+Tugas 4
+-Apa itu Django AuthenticationForm? Jelaskan juga kelebihan dan kekurangannya?
+Berdasarkan yang dijelaskan di kelas oleh bu Iis. Django authetincationForm itu seperti sebuah template yang diberikan oleh django untuk kita memberikan form yang dapat diisi oleh user. Maka kita tidak perlu lagi repot-repot membuatnya secara manual karena kita cukup import saja. Kelebihan dari Authentication Form adalah menyediakan formulir autentikasi login dan logout yang sudah terintegrasi dengan sistem autentikasi milik Django yang aman,seperti validasi,penolakan permintaan yang tidak valid dengan otomatis.
+Kemudian kekurangan dari Authentication Form adalah kurang fleksibel karena  formulir ini dirancang untuk penggunaan umum dan mungkin perlu dimodifikasi atau dirubah jika memang terdapat kebutuhan yang sangat spesisfik dan berbeda dari pola standar biasanya.
+
+-Apa perbedaan antara autentikasi dan otorisasi? Bagaiamana Django mengimplementasikan kedua konsep tersebut?
+secara definisi autentikasi dan otorisasi sudah bebbeda. Autentikasi yaiut proses memverifiksai identitas pengguna sedangkan otorisasi menentukan hak ases penggunanya,seperti memberikan limitasi atas hal-hal yang boleh dilakukan oleh pengguna.Kemudian autentikasi terjadi sebelum otorisasi sedangkan otorisasi dapat dilakukan setelah autentikasi itu berhasil.Untuk contohnya sendiri adalah autentikasi ketika pengguna ingin login dengan username dan password sedangkan otorisasi adalah role "admin" diperbolehkan menghapus data sedangkan pengguna biasa hanya bisa membaca data yang telah diberikan
+
+- Apa saja kelebihan dan kekurangan session dan cookies dalam konteks menyimpan state di aplikasi web?
+kelebihan cookies:
+-data tetap ada walaupun browser sudah ditutup
+-tidak membebani server secara langsung
+-didukung oleh semua browser
+
+kekurangan cookie:
+-ukurannya terbatas
+-tingkat keamanannya rendah,data bisa dibaca/diubah oleh pengguna lecuali di encrypt
+-Tidak cocok menyimpan data sensitif
+
+Kelebihan session:
+-lebih aman, maka data sensitif tidak di client hanya ada IDnya
+-dapat menyimpan data yang besar
+
+Kekurangan session:
+-Membebani server: tiap user punya entry di memori atau database server.
+-Skalabilitas: kalau server banyak (cluster), perlu mekanisme berbagi session (session store, Redis, dsb.).
+
+-Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai? Bagaimana Django menangani hal tersebut?
+Penggunaan cookie tidak aman secara default dalam pengembangan web. Ada beberapa risiko yang mungkin terjadi dan perlu diwaspadai,terutama berhubungan dengan keamanan dan privasi.
+
+Risiko-risiko yang mungkin terjadi adalah:
+-Pencurian cookies: jika cookies tidak dienkripsi atau dikirim melalui koneksi yang tidak aman (HTTP), penyerang dapat mencegat dan menccuri cookies tersebut
+-CSRF(Cross Site Request Forgery):
+erangan CSRF memaksa pengguna akhir untuk melakukan tindakan yang tidak mereka inginkan pada aplikasi web yang sedang mereka otentikasi. Cookies otentikasi sering kali dimanfaatkan dalam serangan ini. Dimana penyerang dapat mengirimkan request palsu yang mungkin terlihat sah karena ada cookie yang valid.
+
+-Mengimplementasi fungsi registrasi, login, dan logout untuk memungkinkan pengguna mengakses aplikasi sebelumnya sesuai dengan status login/logoutnya.
+Saya membuat fungsi registrasi,login, dan logout pada views.py. Kemudian melakukan import di urls.py milik folder main .Kemudian melakukan routing url dengan mnaruhnya di dalam path.
+
+-Membuat dua (2) akun pengguna dengan masing-masing tiga (3) dummy data menggunakan model yang telah dibuat sebelumnya untuk setiap akun di lokal.
+Saya melakukan registrasi 2 akun epngguna dan kemudian memilih untuk membuat produk baru dengan memencet tommbmol "Add product" di local host.
+
+-Menghubungkan model Product dengan User.
+saya membuka file models.py pada subdirektori main kemudian melakukan import User dan pada model Products saya menambahkan kode untuk menghubungkan product dengan satu user melalui sebuah relationship.
+
+-Menampilkan detail informasi pengguna yang sedang logged in seperti username dan menerapkan cookies seperti last_login pada halaman utama aplikasi.
+saya memodifikasi kode login_user untuk menyimpan cookie baru bernama last_login yang berisi timestamp terakhir kali pengguna melakukan login.Kita dapat mendapatkannya dengan cara menambahkan if form.isvalid() .
+
