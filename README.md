@@ -52,7 +52,7 @@ Kekurangan session:
 -Skalabilitas: kalau server banyak (cluster), perlu mekanisme berbagi session (session store, Redis, dsb.).
 
 -Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai? Bagaimana Django menangani hal tersebut?
-Penggunaan cookie tidak aman secara default dalam pengembangan web. Ada beberapa risiko yang mungkin terjadi dan perlu diwaspadai,terutama berhubungan dengan keamanan dan privasi.
+Penggunaan cookie tidak aman secara default dalam pengembangan web. Ada beberapa risiko yang mungkin terjadi dan perlu diwaspadai,terutama berhubungan dengan keamanan dan privasi.s
 
 Risiko-risiko yang mungkin terjadi adalah:
 -Pencurian cookies: jika cookies tidak dienkripsi atau dikirim melalui koneksi yang tidak aman (HTTP), penyerang dapat mencegat dan menccuri cookies tersebut
@@ -70,4 +70,31 @@ saya membuka file models.py pada subdirektori main kemudian melakukan import Use
 
 -Menampilkan detail informasi pengguna yang sedang logged in seperti username dan menerapkan cookies seperti last_login pada halaman utama aplikasi.
 saya memodifikasi kode login_user untuk menyimpan cookie baru bernama last_login yang berisi timestamp terakhir kali pengguna melakukan login.Kita dapat mendapatkannya dengan cara menambahkan if form.isvalid() .
+
+
+Tugas 5
+-Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+Urutan prioritas pengambilan atau penentuan aturan CSS mana yang akan diterapkan pada suatu elemen HTML, ketika terdapat beberapa selector yang menunjuk ke elemen yang sama, ditentukan oleh konsep Spesifisitas.Spesitifitas dihitung berdasarkan empat tingkatan, dari yang paling tinggi ke paling rendah prioritasnya:
+    -Inline Style (1, 0, 0, 0): Properti CSS yang ditulis langsung di dalam tag HTML menggunakan atribut style
+    -ID Selector (0, 1, 0, 0): Selector yang menunjuk elemen berdasarkan atribut id
+    -Class, Attribute, dan Pseudo-class Selector (0, 0, 1, 0): Selector yang menunjuk berdasarkan atribut class (misalnya, .button)
+    -Element dan Pseudo-element Selector (0, 0, 0, 1): Selector yang menunjuk berdasarkan nama tag HTML,misalnya, p, div
+
+-Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design, serta jelaskan mengapa!
+Responsive Web Design (RWD) adalah pendekatan dalam pengembangan web yang bertujuan agar tata letak (layout) dan konten sebuah situs web secara otomatis menyesuaikan diri dengan berbagai ukuran layar perangkat,contohnya adalah dekstop,tablet,ponsel. Tujuannya sendiri untuk memberikan pengalaman yang optimal untuk user tanpa memandang device yang digunakan.Contoh aplikasi yang sudah menerapkan Responsive design adalah: Facebook,Twitter web,roblox,youtube,dll
+
+-Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
+Padding adalah ruang di dalam elemen, antara konten (teks/gambar) dan border-nya. Memberikan "bantalan" di sekitar konten.
+Border adalah garis yang mengelilingi padding dan konten. Ini adalah batas visual elemen yang sebenarnya.
+Margin adalah ruang di luar elemen, antara border elemen tersebut dengan elemen lain di sekitarnya. Digunakan untuk mengontrol jarak antar elemen.
+
+-Jelaskan konsep flex box dan grid layout beserta kegunaannya!
+Flexbox maupun Grid Layout adalah modul tata letak CSS modern yang memecahkan masalah kompleks penataan elemen HTML yang dulunya sulit dilakukan hanya dengan float atau posistioning.
+    -Flexbox
+    Metode tata letak satu dimensi untuk mengatur baris atau kolom elemen dalam wadah (container).
+    -grid layout
+    Metode tata letak dua dimensi yang memungkinkan penataan elemen dalam baris dan kolom secara simultan.
+
+Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
+Saya menambahkan fungsi delete product dan edit product. Kemudian melakukan routing dengan menaruhnya di path pada file urls.py.Lalu saya melakukan kustomisasi warna pada laman login,register,tambah product,edit product,dan detail product dengan mengubahnya menjadi warna biru dan kuning. Halaman produk saya ubah header atasnya mennjadi warna gelap dan memberikan efek hover pada beberapa tombol,seperti home,product, dan logout ketika akan diklik ada warna gelapnya.Saya juga menambahkan nama suer sebagai penjual dan harga pada home page.Saya juga menbamhkan foto emoji sedih apabila product belum ada.
 
