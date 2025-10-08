@@ -98,3 +98,77 @@ Flexbox maupun Grid Layout adalah modul tata letak CSS modern yang memecahkan ma
 Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
 Saya menambahkan fungsi delete product dan edit product. Kemudian melakukan routing dengan menaruhnya di path pada file urls.py.Lalu saya melakukan kustomisasi warna pada laman login,register,tambah product,edit product,dan detail product dengan mengubahnya menjadi warna biru dan kuning. Halaman produk saya ubah header atasnya mennjadi warna gelap dan memberikan efek hover pada beberapa tombol,seperti home,product, dan logout ketika akan diklik ada warna gelapnya.Saya juga menambahkan nama suer sebagai penjual dan harga pada home page.Saya juga menbamhkan foto emoji sedih apabila product belum ada.
 
+1.Perbedaan antara Synchronous Request dan Asynchronous Request
+
+Synchronous request merupakan jenis permintaan di mana browser harus menunggu hingga server selesai memproses dan mengirimkan respons sebelum melanjutkan aktivitas lain. Pola interaksinya cenderung bersifat “klik → tunggu → reload”, karena setiap kali permintaan dikirim, seluruh halaman akan dimuat ulang. Akibatnya, pengguna tidak dapat melakukan interaksi lain selama proses tersebut berlangsung, dan pengalaman penggunaan terasa lebih lambat.
+
+Sebaliknya, asynchronous request (yang biasanya dilakukan melalui AJAX) memungkinkan browser mengirim dan menerima data di latar belakang tanpa perlu memuat ulang seluruh halaman. Dengan cara ini, pengguna tetap bisa berinteraksi dengan halaman — seperti menggulir, mengetik, atau menekan tombol lain — sambil menunggu respons dari server. Data yang diterima kemudian diolah oleh JavaScript dan ditampilkan secara dinamis di bagian tertentu halaman. Contohnya, ketika menambahkan produk baru di katalog, daftar produk langsung diperbarui tanpa harus melakukan refresh halaman.
+
+2.Cara Kerja AJAX di Django (Alur Request–Response)
+
+Ketika pengguna memicu suatu aksi, seperti menekan tombol “Add Product” atau “Login”, JavaScript akan mengirimkan permintaan ke server Django menggunakan metode fetch() atau XMLHttpRequest(). Permintaan ini dikirim ke endpoint Django tertentu yang telah disiapkan untuk menangani data tersebut.
+
+Selanjutnya, Django menerima request melalui fungsi view (misalnya add_product_ajax atau login_ajax) dan menjalankan logika yang diperlukan — seperti validasi data, operasi CRUD, atau autentikasi pengguna. Setelah selesai diproses, Django mengirimkan kembali response dalam format JSON menggunakan JsonResponse().
+
+JavaScript di sisi klien kemudian menerima data JSON tersebut, memprosesnya, dan memperbarui tampilan halaman secara langsung tanpa perlu reload. Misalnya, produk baru muncul di daftar produk, atau muncul notifikasi seperti “Login berhasil”.
+
+Dengan mekanisme ini, komunikasi antara klien dan server berlangsung cepat, efisien, dan tidak mengganggu aktivitas pengguna di halaman web.
+
+3.Keuntungan Menggunakan AJAX Dibandingkan Render Biasa di Django
+
+Penggunaan AJAX memberikan berbagai keuntungan dibandingkan metode render tradisional yang mengharuskan halaman dimuat ulang setiap kali ada permintaan ke server. Beberapa di antaranya yaitu:
+
+Proses lebih cepat dan efisien.
+Hanya data penting yang dikirim dan diterima, bukan keseluruhan halaman HTML, sehingga waktu respons menjadi lebih singkat.
+
+Tampilan halaman tidak perlu reload.
+Pengguna tetap berada di halaman yang sama tanpa kehilangan posisi scroll atau data input.
+
+Interaksi terasa real-time.
+Misalnya, ketika menambahkan produk, data langsung muncul di layar tanpa perlu menunggu pemuatan ulang.
+
+Pengalaman pengguna lebih baik.
+Website terasa lebih interaktif, responsif, dan menyerupai aplikasi modern (SPA-like).
+
+Beban server lebih ringan.
+Karena server hanya mengirim data JSON, bukan template HTML penuh, konsumsi bandwidth menjadi lebih kecil.
+
+Dengan kata lain, AJAX meningkatkan efisiensi komunikasi antara klien dan server serta memberikan kesan interaktif yang lebih menyenangkan bagi pengguna.
+
+4.Cara Memastikan Keamanan Saat Menggunakan AJAX untuk Login dan Register di Django
+
+Walaupun AJAX membuat proses login dan register lebih cepat, aspek keamanan tetap harus dijaga dengan baik. Beberapa langkah yang perlu diterapkan antara lain:
+
+Gunakan CSRF Token (Cross-Site Request Forgery Protection).
+Django sudah menyediakan sistem CSRF secara otomatis. Setiap permintaan POST dari AJAX wajib menyertakan token CSRF melalui header X-CSRFToken agar tidak rentan terhadap serangan permintaan palsu dari situs lain.
+
+Gunakan HTTPS.
+Pastikan seluruh komunikasi antara klien dan server terenkripsi agar data sensitif seperti username dan password tidak mudah disadap.
+
+Validasi data di sisi server.
+Semua data yang dikirim melalui AJAX harus tetap diverifikasi dan divalidasi oleh Django, bukan hanya oleh JavaScript di sisi klien yang mudah dimanipulasi.
+
+Batasi informasi yang dikirimkan dalam respons.
+Jangan pernah mengirimkan data sensitif dalam bentuk JSON. Jika login gagal, cukup kirimkan pesan umum seperti “Username atau password salah” tanpa memberikan detail tambahan.
+
+Gunakan rate limiting pada endpoint sensitif.
+Hal ini mencegah percobaan login berulang yang berpotensi menjadi serangan brute force.
+
+Dengan langkah-langkah tersebut, fitur login dan register berbasis AJAX dapat berjalan cepat sekaligus tetap aman.
+
+5.Pengaruh AJAX terhadap Pengalaman Pengguna (User Experience) di Website
+
+AJAX memiliki dampak besar terhadap pengalaman pengguna (User Experience/UX) karena membuat interaksi di website terasa lebih cepat, mulus, dan responsif. Pengguna tidak lagi harus menunggu halaman dimuat ulang setiap kali melakukan aksi.
+
+Selain itu, AJAX memungkinkan adanya real-time feedback, seperti munculnya pesan “Produk berhasil ditambahkan” sesaat setelah tombol diklik. Hal ini menciptakan kesan bahwa website lebih interaktif dan responsif terhadap tindakan pengguna.
+
+Halaman juga menjadi lebih dinamis karena pengguna bisa menambah, mengedit, atau menghapus data tanpa kehilangan konteks halaman yang sedang dibuka. Dengan begitu, fokus pengguna tidak terganggu, dan navigasi menjadi lebih nyaman.
+
+Secara keseluruhan, penggunaan AJAX meningkatkan kepuasan dan kenyamanan pengguna, menjadikan website terasa seperti aplikasi modern yang cepat, efisien, dan intuitif.
+
+Referensi:
+Tutorial 5 PBP
+W3Schools – How To Create a Snackbar / Toast
+YouTube channel Lun Dev
+Website Mendix
+GeeksforGeeks – Handling AJAX in Django
