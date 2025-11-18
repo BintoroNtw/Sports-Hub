@@ -5,11 +5,7 @@
 {% endblock meta %}
 
 {% block content %}
-<button
-  onclick="showToast('Sample Title', 'This is a sample message for the toast notification.')"
->
-  Click to Show Toast
-</button>
+
 <div class="form-style">
   <div class="min-h-screen bg-gray-50 flex items-center justify-center p-8">
     <div class="max-w-md w-full relative z-10">
@@ -120,4 +116,52 @@
     </div>
   </div>
 </div>
+
+
+<script>
+const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+function showToast(msg, color="bg-green-600") {
+  let toast = document.getElementById("toast");
+  if (!toast) {
+    toast = document.createElement("div");
+    toast.id = "toast";
+    toast.className = "fixed top-6 left-1/2 -translate-x-1/2 text-white px-5 py-3 rounded-md shadow-md z-50 transition-all duration-500 " + color;
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.classList.remove("hidden");
+  setTimeout(() => toast.classList.add("hidden"), 2500);
+}
+
+document.querySelector("form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const username = document.getElementById("username").value;
+  const password1 = document.getElementById("password1").value;
+  const password2 = document.getElementById("password2").value;
+
+  const formData = new FormData();
+  formData.append("username", username);
+  formData.append("password1", password1);
+  formData.append("password2", password2);
+
+  try {
+    const res = await fetch("{% url 'main:register_ajax' %}", {
+      method: "POST",
+      headers: { "X-CSRFToken": csrftoken, "X-Requested-With": "XMLHttpRequest" },
+      body: formData,
+    });
+    const data = await res.json();
+    if (data.success) {
+      showToast("Account created!");
+      setTimeout(() => window.location.href = "{% url 'main:login' %}", 1000);
+    } else {
+      showToast("Register failed!", "bg-red-600");
+    }
+  } catch {
+    showToast("Something went wrong", "bg-red-600");
+  }
+});
+</script>
+
 {% endblock content %}

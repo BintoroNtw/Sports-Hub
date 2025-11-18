@@ -5,11 +5,7 @@
 {% endblock meta %}
 
 {% block content %}
-<button
-  onclick="showToast('Sample Title', 'This is a sample message for the toast notification.')"
->
-  Click to Show Toast
-</button>
+
 <div class="bg-gray-50 w-full min-h-screen flex items-center justify-center p-8">
   <div class="max-w-md w-full">
     <div class="bg-white rounded-lg border border-gray-200 p-6 sm:p-8 form-style">
@@ -107,4 +103,51 @@
     </div>
   </div>
 </div>
+
+
+<script>
+const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+// reuse toast dari main.html
+function showToast(msg, color="bg-green-600") {
+  let toast = document.getElementById("toast");
+  if (!toast) {
+    toast = document.createElement("div");
+    toast.id = "toast";
+    toast.className = "fixed top-6 left-1/2 -translate-x-1/2 text-white px-5 py-3 rounded-md shadow-md z-50 transition-all duration-500 " + color;
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.classList.remove("hidden");
+  setTimeout(() => toast.classList.add("hidden"), 2500);
+}
+
+document.querySelector("form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+
+  const formData = new FormData();
+  formData.append("username", username);
+  formData.append("password", password);
+
+  try {
+    const res = await fetch("{% url 'main:login_ajax' %}", {
+      method: "POST",
+      headers: { "X-CSRFToken": csrftoken, "X-Requested-With": "XMLHttpRequest" },
+      body: formData,
+    });
+    const data = await res.json();
+    if (data.success) {
+      showToast("Login successful!");
+      setTimeout(() => window.location.href = "{% url 'main:show_main' %}", 1000);
+    } else {
+      showToast("Login failed!", "bg-red-600");
+    }
+  } catch {
+    showToast("Something went wrong", "bg-red-600");
+  }
+});
+</script>
+
 {% endblock content %}
